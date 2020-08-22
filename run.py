@@ -1,11 +1,11 @@
 from flask import Flask, render_template, redirect
 from pymongo import MongoClient
 from classes import *
-
+import sys
 # config system
 app = Flask(__name__)
-app.config.update(dict(SECRET_KEY='yoursecretkey'))
-client = MongoClient('localhost:27017')
+app.config.update(dict(SECRET_KEY=sys.argv[1]))
+client = MongoClient('{}:27017'.format(sys.argv[2]))
 db = client.TaskManager
 
 if db.settings.find({'name': 'task_id'}).count() <= 0:
